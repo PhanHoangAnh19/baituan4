@@ -1,24 +1,26 @@
 package com.example.baituan4;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class HistoryActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_history);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        RecyclerView rv = findViewById(R.id.rvHistory);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+
+        String[] items = {
+                "12:01  •  Paid 50.000đ to Coffee",
+                "09:15  •  Paid 120.000đ to Groceries",
+                "Yesterday • Received 200.000đ",
+                "2 days ago • Paid 30.000đ to Parking"
+        };
+        rv.setAdapter(new SimpleStringAdapter(items));
+
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
     }
 }
